@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+#Created by: Bruno Costa
+# brunovasquescosta@gmail.com
+# 2015/11/30
+
+to="@gmail.com"
+from="@gmail.com"
+suject="Testing"
+# To generate your token run the line below
+#perl -MMIME::Base64 -e 'print encode_base64("\000mail\@gmail.com\000mypassword")'
+token=""
+message="\n"
+
+(sleep 5; echo "ehlo localhost"; sleep 5; echo "AUTH PLAIN ${token}";sleep 10;echo "MAIL FROM: <${from}>";sleep 3;echo "RCPT TO: <${to}>";sleep 3;echo "DATA";sleep 2;echo "SUBJECT: ${subject}";printf "${message}";echo ".";sleep 4;  echo "quit" ) | openssl s_client -connect smtp.gmail.com:465 -crlf -ign_eof
